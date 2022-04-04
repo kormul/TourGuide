@@ -64,7 +64,6 @@ public class LocationControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
       
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("latitude"));
         Assert.assertTrue(result.getRequest().getParameter("userName").contains(userName));
     }
 
