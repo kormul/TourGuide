@@ -43,9 +43,9 @@ public class RewardsService {
 	public void calculateRewards(User user) {
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
 		List<Attraction> attractions = gpsUtilWebClient.getListAttractions();
-		
-		userLocations.parallelStream().forEach((visitedLocation) -> {
-			attractions.parallelStream().forEach((attraction) -> {
+		userLocations.stream().forEach((visitedLocation) -> {
+			attractions.stream().forEach((attraction) -> {
+				
 				if(user.getUserRewards().parallelStream().filter(r -> r.getAttraction().getAttractionName().equals(attraction.getAttractionName())).count() == 0) {
 					if(nearAttraction(visitedLocation, attraction)) {
 						user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));

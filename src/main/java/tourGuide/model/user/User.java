@@ -75,7 +75,8 @@ public class User {
 	}
 	
 	public void addUserReward(UserReward userReward) {
-		if(userRewards.stream().filter(r -> !r.getAttraction().getAttractionName().equals(userReward.getAttraction().getAttractionName())).count() == 0) {
+		
+		if(userRewards.stream().filter(r -> r.getAttraction().getAttractionName().equals(userReward.getAttraction().getAttractionName())).count() == 0) {
 			userRewards.add(userReward);
 		}
 	}

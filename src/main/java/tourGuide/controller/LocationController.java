@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jsoniter.output.JsonStream;
 
+import net.minidev.json.JSONArray;
 import tourGuide.exception.UserNotFoundException;
 import tourGuide.model.location.VisitedLocation;
 import tourGuide.model.user.User;
@@ -35,9 +36,8 @@ public class LocationController {
             logger.error("This username does not exist" + userName);
             throw new UserNotFoundException(userName);
         }
-         VisitedLocation visitedLocation =
-                    tourGuideService.getUserLocation(tourGuideService.getUser(userName));
-
+        VisitedLocation visitedLocation = tourGuideService.getUserLocation(tourGuideService.getUser(userName));
+        
         return JsonStream.serialize(visitedLocation.getLocation());
     }
     
@@ -51,7 +51,9 @@ public class LocationController {
         }
         
         User user = tourGuideService.getUser(userName);
+        System.out.println(user.getEmailAddress());
     	VisitedLocation visitedLocation = tourGuideService.getUserLocation(user);
+        System.out.println(user.getEmailAddress());
     	return JsonStream.serialize(tourGuideService.getNearByAttractions(visitedLocation));
     }
     

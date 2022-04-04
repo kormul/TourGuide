@@ -1,4 +1,4 @@
-package tourGuide;
+package tourGuide.service;
 
 import static org.junit.Assert.*;
 
@@ -81,13 +81,10 @@ public class TestRewardsService {
 		List<UserReward> userRewards = tourGuideService.getUserRewards(tourGuideService.getAllUsers().get(0)); //ici
 		
 		tourGuideService.getTracker().stopTracking();
-		System.out.println(userRewards.size());
-		System.out.println(gpsUtilWebClient.getListAttractions().size());
 
-		//assertEquals(gpsUtilWebClient.getListAttractions().size(), 1/*userRewards.size()*/);
+		assertEquals(gpsUtilWebClient.getListAttractions().size(), userRewards.size());
 
 		rewardsService.setDefaultProximityBuffer();
-		assertEquals(gpsUtilWebClient.getListAttractions().size(), 26);
 		
 	}
 	
