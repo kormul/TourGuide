@@ -105,7 +105,7 @@ public class TestTourGuideService {
 		
 		tourGuideService.getTracker().stopTracking();
 		
-		assertEquals(0, attractions.size());
+		assertEquals(5, attractions.size());
 	}
 	
 	@Test

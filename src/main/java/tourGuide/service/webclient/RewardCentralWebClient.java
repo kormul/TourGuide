@@ -12,6 +12,9 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RewardCentralWebClient {
 	
+	public String dockerURLLocation = "http://localhost:8083";
+
+	
     public int getRewardPointsWebClient(UUID attractionUUID, UUID userUUID) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -22,7 +25,7 @@ public class RewardCentralWebClient {
         int rewardPoints;
 
         ResponseEntity<Integer> result  =
-        restTemplate.getForEntity("http://localhost:8083/getRewardPoints?attractionId=" + attractionUUID +"&userId=" + userUUID, Integer.class);
+        restTemplate.getForEntity(dockerURLLocation+"/getRewardPoints?attractionId=" + attractionUUID +"&userId=" + userUUID, Integer.class);
 
         rewardPoints = result.getBody();
         return rewardPoints;

@@ -12,14 +12,16 @@ import tourGuide.model.Provider;
 
 @Service
 public class TripPricerWebClient {
-	
+
+	public String dockerURLLocation = "http://localhost:8081";
+
 	public List<Provider> getPrice(String apiKey, String userStringId, int adults, int children, int duration, int rewardsPoints){
 		
 		RestTemplate restTemplate = new RestTemplate();
         List<Provider> providers;
         
         ResponseEntity<List<Provider>> result =
-        		restTemplate.exchange("http://localhost:8081/getTripPricer" +
+        		restTemplate.exchange(dockerURLLocation+"/getTripPricer" +
         				"?apiKey="+ apiKey +
         				"&userStringId=" + userStringId +
         				"&adults=" +adults+

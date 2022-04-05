@@ -114,15 +114,14 @@ public class TourGuideService {
 	public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
 		logger.debug("getNearByAttractions");
 
-		List<Attraction> nearbyAttractions = new ArrayList<>();
-
-		gpsUtilWebClient.getListAttractions().parallelStream().forEach((attraction) -> {
-			if(rewardsService.isWithinAttractionProximity(attraction, visitedLocation.getLocation())) {
-				nearbyAttractions.add(attraction);
-			}
-		});
+		List<Attraction> allAttractions = gpsUtilWebClient.getListAttractions();
 		
-		return nearbyAttractions;
+		allAttractions.sort((a1, a2)-> {
+			if(rewardsService.getDistance(a1, visitedLocation.getLocation()) > rewardsService.getDistance(a1, visitedLocation.getLocation()))
+				return -1;
+			return 1;
+		});
+		return allAttractions.subList(0, 5);
 	}
 	
 	public void userPreferenceUpdate(String userName, PreferencesDTO preferencesDTO) {

@@ -18,6 +18,8 @@ import tourGuide.model.location.VisitedLocation;
 @Service
 public class GpsUtilWebClient {
 	
+	public String dockerURLLocation = "http://localhost:8082";
+	
 	public VisitedLocation getUserLocation(UUID userId) {
 		
 		VisitedLocation visitedLocation;
@@ -30,7 +32,7 @@ public class GpsUtilWebClient {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         
     
-        ResponseEntity<VisitedLocation> result  = restTemplate.getForEntity("http://localhost:8082/getUserLocation?userId=" + userId, VisitedLocation.class);
+        ResponseEntity<VisitedLocation> result  = restTemplate.getForEntity(dockerURLLocation+"/getUserLocation?userId=" + userId, VisitedLocation.class);
         visitedLocation = result.getBody();
         
         return visitedLocation;
@@ -41,7 +43,7 @@ public class GpsUtilWebClient {
     	List<Attraction> attractionList;
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<List<Attraction>> result = restTemplate.exchange("http://localhost:8082/getListAttractions",
+        ResponseEntity<List<Attraction>> result = restTemplate.exchange(dockerURLLocation+"/getListAttractions",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<Attraction>>(){});
         
         attractionList= result.getBody();

@@ -65,16 +65,11 @@ public class TestPerformance {
 	    StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		
-		/*for(User user : allUsers) {
-			tourGuideService.trackUserLocation(user);
-		}*/
-		
 		allUsers.parallelStream().forEach((user) -> { tourGuideService.trackUserLocation(user); });
 
 		stopWatch.stop();
 		tourGuideService.getTracker().stopTracking();
-		System.out.println("highVolumeTrackLocation: Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds."); 
-		System.out.println("highVolumeTrackLocation: Time Elapsed: " + TimeUnit.MILLISECONDS.toNanos(stopWatch.getTime()) + " seconds."); 
+		System.out.println("highVolumeTrackLocation: Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds.");
 		assertTrue(TimeUnit.MINUTES.toSeconds(15) >= TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()));
 	}
 	
