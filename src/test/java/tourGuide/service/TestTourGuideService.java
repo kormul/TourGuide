@@ -16,9 +16,6 @@ import tourGuide.model.Provider;
 import tourGuide.model.attraction.Attraction;
 import tourGuide.model.location.VisitedLocation;
 import tourGuide.model.user.User;
-import tourGuide.service.InternalTestHelperService;
-import tourGuide.service.RewardsService;
-import tourGuide.service.TourGuideService;
 import tourGuide.service.webclient.GpsUtilWebClient;
 
 @SpringBootTest

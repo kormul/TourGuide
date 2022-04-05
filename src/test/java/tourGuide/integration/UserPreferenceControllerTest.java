@@ -4,8 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.UUID;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +18,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import tourGuide.dto.PreferencesDTO;
 import tourGuide.model.user.User;
 import tourGuide.service.InternalTestHelperService;
 
@@ -59,7 +56,8 @@ public class UserPreferenceControllerTest {
                 "\"numberOfChildren\": 5\n" +
                 "}";
 
-        MvcResult result = mockMvc.perform(put("/user/preferences")
+        @SuppressWarnings("unused")
+		MvcResult result = mockMvc.perform(put("/user/preferences")
                 .param("user", userName)
                 .content(questionBody)
                 .contentType(MediaType.APPLICATION_JSON)

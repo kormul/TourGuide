@@ -46,10 +46,13 @@ public class TourGuideService {
 	boolean testMode = true;
 	
 	public List<UserReward> getUserRewards(User user) {
+		logger.debug("getUserRewards");
 		return user.getUserRewards();
 	}
 	
 	public VisitedLocation getUserLocation(User user) {
+		logger.debug("getUserLocation");
+
 		VisitedLocation visitedLocation = (user.getVisitedLocations().size() > 0) ?
 			user.getLastVisitedLocation() :
 			trackUserLocation(user);
@@ -57,15 +60,20 @@ public class TourGuideService {
 	}
 	
 	public User getUser(String userName) {
+		logger.debug("getUser");
+
 		return internalTestHelperService.getInternalUserMap().get(userName);
 	}
 	
 	public List<User> getAllUsers() {
+		logger.debug("getAllUsers");
+
 		return internalTestHelperService.getInternalUserMap().values().stream().collect(Collectors.toList());
 	}
 	
 	public List<UserLocationDTO> getLocationUsers(){
-		
+		logger.debug("getLocationUsers");
+
 		List<User> users = this.getAllUsers();
 		List<UserLocationDTO> userLocationDTOs = new ArrayList<>();
 		
@@ -77,12 +85,16 @@ public class TourGuideService {
 	}
 	
 	public void addUser(User user) {
+		logger.debug("addUser");
+
 		if(!internalTestHelperService.getInternalUserMap().containsKey(user.getUserName())) {
 			internalTestHelperService.getInternalUserMap().put(user.getUserName(), user);
 		}
 	}
 	
 	public List<Provider> getTripDeals(User user) {
+		logger.debug("getTripDeals");
+
 		int cumulatativeRewardPoints = user.getUserRewards().parallelStream().mapToInt(i -> i.getRewardPoints()).sum();
 		List<Provider> providers = tripPricerWebClient.getPrice(InternalTestHelperService.getTrippricerapikey(), user.getUserId().toString(), user.getUserPreferences().getNumberOfAdults(), 
 				user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
@@ -91,6 +103,8 @@ public class TourGuideService {
 	}
 	
 	public VisitedLocation trackUserLocation(User user) {
+		logger.debug("trackUserLocation");
+
 		VisitedLocation visitedLocation = gpsUtilWebClient.getUserLocation(user.getUserId());
 		user.addToVisitedLocations(visitedLocation);
 		rewardsService.calculateRewards(user);
@@ -98,6 +112,8 @@ public class TourGuideService {
 	}
 
 	public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
+		logger.debug("getNearByAttractions");
+
 		List<Attraction> nearbyAttractions = new ArrayList<>();
 
 		gpsUtilWebClient.getListAttractions().parallelStream().forEach((attraction) -> {
@@ -110,7 +126,8 @@ public class TourGuideService {
 	}
 	
 	public void userPreferenceUpdate(String userName, PreferencesDTO preferencesDTO) {
-		
+		logger.debug("userPreferenceUpdate");
+
 		User user = internalTestHelperService.getInternalUserMap().get(userName);
 		
 		if(user == null) {
@@ -129,15 +146,17 @@ public class TourGuideService {
 		
 	}
 	
-	private void addShutDownHook() {
+	/*private void addShutDownHook() {
 		Runtime.getRuntime().addShutdownHook(new Thread() { 
 		      public void run() {
 		        tracker.stopTracking();
 		      } 
 		    }); 
-	}
+	}*/
 	
 	public Tracker getTracker() {
+		logger.debug("getTracker");
+
 		return tracker;
 	}
 	

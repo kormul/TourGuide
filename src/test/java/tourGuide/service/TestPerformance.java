@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
@@ -18,9 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import tourGuide.model.attraction.Attraction;
 import tourGuide.model.location.VisitedLocation;
 import tourGuide.model.user.User;
-import tourGuide.service.InternalTestHelperService;
-import tourGuide.service.RewardsService;
-import tourGuide.service.TourGuideService;
 import tourGuide.service.webclient.GpsUtilWebClient;
 
 @SpringBootTest

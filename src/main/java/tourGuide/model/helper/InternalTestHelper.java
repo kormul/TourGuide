@@ -1,9 +1,5 @@
 package tourGuide.model.helper;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import tourGuide.service.InternalTestHelperService;
-
 public class InternalTestHelper {
 	
 	// Set this default up to 100,000 for testing

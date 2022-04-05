@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,6 @@ import tourGuide.model.attraction.Attraction;
 import tourGuide.model.location.VisitedLocation;
 import tourGuide.model.user.User;
 import tourGuide.model.user.UserReward;
-import tourGuide.service.InternalTestHelperService;
-import tourGuide.service.RewardsService;
-import tourGuide.service.TourGuideService;
 import tourGuide.service.webclient.GpsUtilWebClient;
 
 @SpringBootTest

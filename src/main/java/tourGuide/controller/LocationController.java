@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jsoniter.output.JsonStream;
 
-import net.minidev.json.JSONArray;
 import tourGuide.exception.UserNotFoundException;
 import tourGuide.model.location.VisitedLocation;
 import tourGuide.model.user.User;
