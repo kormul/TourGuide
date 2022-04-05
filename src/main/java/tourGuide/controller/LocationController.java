@@ -60,7 +60,7 @@ public class LocationController {
     @GetMapping("/getAllCurrentLocations")
     public String getAllCurrentLocations() {
         logger.debug("Controller Get All Current Attractions");
-    	return JsonStream.serialize(tourGuideService.getAllUsers());
+    	return JsonStream.serialize(tourGuideService.getLocationUsers());
     }
 
 }

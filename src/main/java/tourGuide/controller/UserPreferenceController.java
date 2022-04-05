@@ -39,6 +39,8 @@ public class UserPreferenceController {
 			throw new UserPreferenceNotFoundException();
 		}
 		
+		tourGuideService.userPreferenceUpdate(user, preferencesDTO);
+		
 		return user;
 	}
 }

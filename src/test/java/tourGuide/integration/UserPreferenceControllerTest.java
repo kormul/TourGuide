@@ -45,34 +45,34 @@ public class UserPreferenceControllerTest {
     @Test
     public void putUpdatePreferencesITest() throws Exception {
 
-    	UUID userID = new UUID(1,1);
-    	
-        PreferencesDTO preferencesDTO = new PreferencesDTO(new UUID(1,1).toString(), 0,"0",1,1,1,1,1,1);
-
-        internalTestHelperService.setInternalUserNumber(1);
-
-        User user = new User(userID, "internalUser0", "1243456", "internalUser0@Gmail.com");
+        internalTestHelperService.setInternalUserNumber(2);
         
         String userName = "internalUser0";
         String questionBody = "{\n" +
-                "\"attractionProximity\": 21447,\n" +
+                "\"attractionProximity\": 2,\n" +
                 "\"currency\": \"USD\",\n" +
-                "\"lowerPricePoint\": 0.0,\n" +
-                "\"highPricePoint\": 300.0,\n" +
-                "\"tripDuration\": 1,\n" +
-                "\"ticketQuantity\": 1,\n" +
-                "\"numberOfAdults\": 1,\n" +
-                "\"numberOfChildren\": 0\n" +
+                "\"lowerPricePoint\": 100.0,\n" +
+                "\"highPricePoint\": 900.0,\n" +
+                "\"tripDuration\": 5,\n" +
+                "\"ticketQuantity\": 3,\n" +
+                "\"numberOfAdults\": 2,\n" +
+                "\"numberOfChildren\": 5\n" +
                 "}";
 
-        MvcResult result = mockMvc.perform(put("/update/Preferences")
-                .param("userName", userName)
+        MvcResult result = mockMvc.perform(put("/user/preferences")
+                .param("user", userName)
                 .content(questionBody)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
-        Assert.assertFalse(preferencesDTO.getNumberOfAdults() == user.getUserPreferences().getNumberOfAdults());
+        
+		User usera = internalTestHelperService.getInternalUserMap().get("internalUser0");
+		User userb = internalTestHelperService.getInternalUserMap().get("internalUser1");
+        
+        Assert.assertTrue((usera.getUserPreferences().getNumberOfAdults() != userb.getUserPreferences().getNumberOfAdults()));
+        Assert.assertTrue((usera.getUserPreferences().getNumberOfChildren() != userb.getUserPreferences().getNumberOfChildren()));
+
     }
 }

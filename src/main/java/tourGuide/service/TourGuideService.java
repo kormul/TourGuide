@@ -5,15 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.money.Monetary;
+
+import org.javamoney.moneta.Money;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tourGuide.dto.PreferencesDTO;
+import tourGuide.dto.UserLocationDTO;
 import tourGuide.model.Provider;
 import tourGuide.model.attraction.Attraction;
 import tourGuide.model.location.VisitedLocation;
 import tourGuide.model.user.User;
+import tourGuide.model.user.UserPreferences;
 import tourGuide.model.user.UserReward;
 import tourGuide.service.webclient.GpsUtilWebClient;
 import tourGuide.service.webclient.TripPricerWebClient;
@@ -55,9 +61,19 @@ public class TourGuideService {
 	}
 	
 	public List<User> getAllUsers() {
-		//return internalTestHelperService.getInternalUserMap().values().stream().collect(Collectors.toList()).subList(0, InternalTestHelper.getInternalUserNumber());
 		return internalTestHelperService.getInternalUserMap().values().stream().collect(Collectors.toList());
-
+	}
+	
+	public List<UserLocationDTO> getLocationUsers(){
+		
+		List<User> users = this.getAllUsers();
+		List<UserLocationDTO> userLocationDTOs = new ArrayList<>();
+		
+		users.parallelStream().forEach((user) -> {
+			userLocationDTOs.add(new UserLocationDTO(user.getUserId(), user.getLastVisitedLocation().getLocation()));
+		});
+		
+		return userLocationDTOs;
 	}
 	
 	public void addUser(User user) {
@@ -91,6 +107,26 @@ public class TourGuideService {
 		});
 		
 		return nearbyAttractions;
+	}
+	
+	public void userPreferenceUpdate(String userName, PreferencesDTO preferencesDTO) {
+		
+		User user = internalTestHelperService.getInternalUserMap().get(userName);
+		
+		if(user == null) {
+			return;
+		}
+		
+		UserPreferences userPreferences = user.getUserPreferences();
+		userPreferences.setAttractionProximity(preferencesDTO.getAttractionProximity());
+		userPreferences.setCurrency(Monetary.getCurrency(preferencesDTO.getCurrency()));
+		userPreferences.setLowerPricePoint(Money.of(preferencesDTO.getLowerPricePoint(), userPreferences.getCurrency()));
+		userPreferences.setHighPricePoint(Money.of(preferencesDTO.getHighPricePoint(), userPreferences.getCurrency()));
+		userPreferences.setTripDuration(preferencesDTO.getTripDuration());
+		userPreferences.setTicketQuantity(preferencesDTO.getTicketQuantity());
+		userPreferences.setNumberOfAdults(preferencesDTO.getNumberOfAdults());
+		userPreferences.setNumberOfChildren(preferencesDTO.getNumberOfChildren());
+		
 	}
 	
 	private void addShutDownHook() {
