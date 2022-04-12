@@ -3,6 +3,10 @@ package tourGuide.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import javax.money.Monetary;
@@ -39,6 +43,8 @@ public class TourGuideService {
 	
 	@Autowired
 	private InternalTestHelperService internalTestHelperService;
+	
+	private ExecutorService executorService = Executors.newFixedThreadPool(32000);
 	
 	@Autowired
 	private Tracker tracker;
@@ -102,13 +108,24 @@ public class TourGuideService {
 		return providers;
 	}
 	
-	public VisitedLocation trackUserLocation(User user) {
-		logger.debug("trackUserLocation");
+	public VisitedLocation trackUserLocation(User user){
+		
+		try {
+			return CompletableFuture.supplyAsync(()-> {		
+				logger.debug("trackUserLocation");
 
-		VisitedLocation visitedLocation = gpsUtilWebClient.getUserLocation(user.getUserId());
-		user.addToVisitedLocations(visitedLocation);
-		rewardsService.calculateRewards(user);
-		return visitedLocation;
+				VisitedLocation visitedLocation = gpsUtilWebClient.getUserLocation(user.getUserId());
+				user.addToVisitedLocations(visitedLocation);
+				rewardsService.calculateRewards(user);
+				return visitedLocation;
+			}, executorService ).get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 
 	public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {

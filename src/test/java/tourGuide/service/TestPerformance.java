@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
@@ -57,7 +58,7 @@ public class TestPerformance {
 	@Test
 	public void highVolumeTrackLocation()  {
 		// Users should be incremented up to 100,000, and test finishes within 15 minutes
-		internalTestHelperService.setInternalUserNumber(50);
+		internalTestHelperService.setInternalUserNumber(1000);
 		
 		List<User> allUsers = new ArrayList<>();
 		allUsers = tourGuideService.getAllUsers();
@@ -65,7 +66,9 @@ public class TestPerformance {
 	    StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		
-		allUsers.parallelStream().forEach((user) -> { tourGuideService.trackUserLocation(user); });
+		for(User user : allUsers) {
+			tourGuideService.trackUserLocation(user);
+		}
 
 		stopWatch.stop();
 		tourGuideService.getTracker().stopTracking();
@@ -84,14 +87,14 @@ public class TestPerformance {
 	    Attraction attraction = gpsUtilWebClient.getListAttractions().get(0);
 		List<User> allUsers = new ArrayList<>();
 		allUsers = tourGuideService.getAllUsers();
-		
-		allUsers.parallelStream().forEach((user) -> {
-			user.addToVisitedLocations(new VisitedLocation(user.getUserId(), attraction, new Date()));
-			rewardsService.calculateRewards(user);
+		allUsers.forEach(u -> u.addToVisitedLocations(new VisitedLocation(u.getUserId(), attraction, new Date())));
+	     
+	    allUsers.forEach(u -> rewardsService.calculateRewards(u));
+	    
+		for(User user : allUsers) {
 			assertTrue(user.getUserRewards().size() > 0);
-		});
+		}
 		
-
 		stopWatch.stop();
 		tourGuideService.getTracker().stopTracking();
 

@@ -17,7 +17,7 @@ import tourGuide.model.user.User;
 public class Tracker extends Thread {
 	private Logger logger = LoggerFactory.getLogger(Tracker.class);
 	private static final long trackingPollingInterval = TimeUnit.MINUTES.toSeconds(5);
-	private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+	private final ExecutorService executorService = Executors.newFixedThreadPool(32000);
 	
 	@Autowired
 	private TourGuideService tourGuideService;
