@@ -88,7 +88,12 @@ public class RewardsService {
 					
 					if(user.getUserRewards().stream().filter(r -> r.getAttraction().getAttractionName().equals(attraction.getAttractionName())).count() == 0) {
 						if(nearAttraction(visitedLocation, attraction)) {
-							user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+							
+							CompletableFuture.supplyAsync(()->{
+								return getRewardPoints(attraction, user);
+							}, executorService).thenAccept(points -> {
+								user.addUserReward(new UserReward(visitedLocation, attraction, points));
+							});
 						}
 					}
 				});
