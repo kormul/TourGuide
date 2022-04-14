@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
@@ -66,21 +67,32 @@ public class TestPerformance {
 	    StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		
+	    ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) tourGuideService.getExecutorService();
+		
 		for(User user : allUsers) {
 			tourGuideService.trackUserLocation(user);
+		}
+		
+		while(threadPoolExecutor.getActiveCount() >0) {
+		    try {
+				TimeUnit.SECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 		stopWatch.stop();
 		tourGuideService.getTracker().stopTracking();
 		System.out.println("highVolumeTrackLocation: Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds.");
 		assertTrue(TimeUnit.MINUTES.toSeconds(15) >= TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()));
+
 	}
 	
 	@Test
 	public void highVolumeGetRewards() {
 
 		// Users should be incremented up to 100,000, and test finishes within 20 minutes
-		internalTestHelperService.setInternalUserNumber(50);
+		internalTestHelperService.setInternalUserNumber(1000);
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		
@@ -91,6 +103,16 @@ public class TestPerformance {
 	     
 	    allUsers.forEach(u -> rewardsService.calculateRewards(u));
 	    
+	    ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) rewardsService.getExecutorService();
+	    
+	    while(threadPoolExecutor.getActiveCount() >0) {
+		    try {
+				TimeUnit.SECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
 		for(User user : allUsers) {
 			assertTrue(user.getUserRewards().size() > 0);
 		}

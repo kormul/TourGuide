@@ -39,7 +39,8 @@ public class TestTourGuideService {
 		internalTestHelperService.setInternalUserNumber(0);
 		
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-		VisitedLocation visitedLocation = tourGuideService.trackUserLocation(user);
+		tourGuideService.trackUserLocation(user);
+		VisitedLocation visitedLocation = user.getLastVisitedLocation();
 		tourGuideService.getTracker().stopTracking();
 		assertTrue(visitedLocation.getUserId().equals(user.getUserId()));
 	}
@@ -86,7 +87,8 @@ public class TestTourGuideService {
 		internalTestHelperService.setInternalUserNumber(0);
 		
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-		VisitedLocation visitedLocation = tourGuideService.trackUserLocation(user);
+		tourGuideService.trackUserLocation(user);
+		VisitedLocation visitedLocation = user.getLastVisitedLocation();
 		
 		tourGuideService.getTracker().stopTracking();
 		
@@ -99,7 +101,8 @@ public class TestTourGuideService {
 		internalTestHelperService.setInternalUserNumber(0);
 		
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-		VisitedLocation visitedLocation = tourGuideService.trackUserLocation(user);
+		tourGuideService.trackUserLocation(user);
+		VisitedLocation visitedLocation = user.getLastVisitedLocation();
 		
 		List<Attraction> attractions = tourGuideService.getNearByAttractions(visitedLocation);
 		

@@ -1,10 +1,10 @@
 package tourGuide.service;
 
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -59,10 +59,11 @@ public class TourGuideService {
 	public VisitedLocation getUserLocation(User user) {
 		logger.debug("getUserLocation");
 
-		VisitedLocation visitedLocation = (user.getVisitedLocations().size() > 0) ?
-			user.getLastVisitedLocation() :
+		
+		if(user.getVisitedLocations().size() == 0)
 			trackUserLocation(user);
-		return visitedLocation;
+		
+		return user.getLastVisitedLocation();
 	}
 	
 	public User getUser(String userName) {
@@ -108,23 +109,18 @@ public class TourGuideService {
 		return providers;
 	}
 	
-	public VisitedLocation trackUserLocation(User user){
+	public void trackUserLocation(User user){
 		
-		try {
-			return CompletableFuture.supplyAsync(()-> {		
+			CompletableFuture.supplyAsync(()-> {		
 				logger.debug("trackUserLocation");
 
 				VisitedLocation visitedLocation = gpsUtilWebClient.getUserLocation(user.getUserId());
+				return visitedLocation;
+				
+			}, executorService ).thenAccept(visitedLocation -> {
 				user.addToVisitedLocations(visitedLocation);
 				rewardsService.calculateRewards(user);
-				return visitedLocation;
-			}, executorService ).get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
-		return null;
+			});
 		
 	}
 
@@ -175,6 +171,11 @@ public class TourGuideService {
 
 		return tracker;
 	}
+
+	public ExecutorService getExecutorService() {
+		return executorService;
+	}
+	
 	
 	
 }

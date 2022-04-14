@@ -2,7 +2,12 @@ package tourGuide.service;
 
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +28,10 @@ public class RewardsService {
 	private int proximityBuffer = defaultProximityBuffer;
 	private int attractionProximityRange = 200;
 	
+	private Logger logger = LoggerFactory.getLogger(TourGuideService.class);
+	
+	private ExecutorService executorService = Executors.newFixedThreadPool(32000);
+	
 	@Autowired
 	private GpsUtilWebClient gpsUtilWebClient;
 	
@@ -41,10 +50,22 @@ public class RewardsService {
 	}
 	
 	public void calculateRewards(User user) {
+		
+		/*CompletableFuture.supplyAsync(()-> {		
+			logger.debug("trackUserLocation");
+
+			VisitedLocation visitedLocation = gpsUtilWebClient.getUserLocation(user.getUserId());
+			return visitedLocation;
+			
+		}, executorService ).thenAccept(visitedLocation -> {
+			user.addToVisitedLocations(visitedLocation);
+			rewardsService.calculateRewards(user);
+		});
+		
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
 		List<Attraction> attractions = gpsUtilWebClient.getListAttractions();
-		userLocations.stream().forEach((visitedLocation) -> {
-			attractions.stream().forEach((attraction) -> {
+		userLocations.parallelStream().forEach((visitedLocation) -> {
+			attractions.parallelStream().forEach((attraction) -> {
 				
 				if(user.getUserRewards().parallelStream().filter(r -> r.getAttraction().getAttractionName().equals(attraction.getAttractionName())).count() == 0) {
 					if(nearAttraction(visitedLocation, attraction)) {
@@ -52,8 +73,27 @@ public class RewardsService {
 					}
 				}
 			});
+		});*/
+		logger.debug("trackUserLocation");
+
+		CompletableFuture.supplyAsync(()-> {		
+			List<Attraction> attractions = gpsUtilWebClient.getListAttractions();
+			return attractions;
+		}, executorService ).thenAccept(attractions -> {
+			
+			List<VisitedLocation> userLocations = user.getVisitedLocations();
+
+			userLocations.stream().forEach((visitedLocation) -> {
+				attractions.stream().forEach((attraction) -> {
+					
+					if(user.getUserRewards().stream().filter(r -> r.getAttraction().getAttractionName().equals(attraction.getAttractionName())).count() == 0) {
+						if(nearAttraction(visitedLocation, attraction)) {
+							user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+						}
+					}
+				});
+			});
 		});
-		
 	}
 	
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
@@ -82,4 +122,7 @@ public class RewardsService {
         return statuteMiles;
 	}
 
+	public ExecutorService getExecutorService() {
+		return executorService;
+	}
 }
