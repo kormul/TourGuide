@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,6 +42,15 @@ public class TestTourGuideService {
 		
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		tourGuideService.trackUserLocation(user);
+	    ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) tourGuideService.getExecutorService();
+
+		while(threadPoolExecutor.getActiveCount() >0) {
+		    try {
+				TimeUnit.SECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		VisitedLocation visitedLocation = user.getLastVisitedLocation();
 		tourGuideService.getTracker().stopTracking();
 		assertTrue(visitedLocation.getUserId().equals(user.getUserId()));
@@ -88,6 +99,15 @@ public class TestTourGuideService {
 		
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		tourGuideService.trackUserLocation(user);
+	    ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) tourGuideService.getExecutorService();
+
+		while(threadPoolExecutor.getActiveCount() >0) {
+		    try {
+				TimeUnit.SECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		VisitedLocation visitedLocation = user.getLastVisitedLocation();
 		
 		tourGuideService.getTracker().stopTracking();
@@ -102,6 +122,15 @@ public class TestTourGuideService {
 		
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		tourGuideService.trackUserLocation(user);
+	    ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) tourGuideService.getExecutorService();
+
+		while(threadPoolExecutor.getActiveCount() >0) {
+		    try {
+				TimeUnit.SECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		VisitedLocation visitedLocation = user.getLastVisitedLocation();
 		
 		List<Attraction> attractions = tourGuideService.getNearByAttractions(visitedLocation);

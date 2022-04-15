@@ -112,7 +112,7 @@ public class TourGuideService {
 	public void trackUserLocation(User user){
 		
 			CompletableFuture.supplyAsync(()-> {		
-				logger.debug("trackUserLocation");
+				//logger.debug("trackUserLocation");
 
 				VisitedLocation visitedLocation = gpsUtilWebClient.getUserLocation(user.getUserId());
 				return visitedLocation;

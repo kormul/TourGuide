@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,6 +46,15 @@ public class TestRewardsService {
 		Attraction attraction = gpsUtilWebClient.getListAttractions().get(0);
 		user.addToVisitedLocations(new VisitedLocation(user.getUserId(), attraction, new Date()));
 		tourGuideService.trackUserLocation(user);
+	    ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) tourGuideService.getExecutorService();
+	    
+		while(threadPoolExecutor.getActiveCount() >0) {
+		    try {
+				TimeUnit.SECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		List<UserReward> userRewards = user.getUserRewards();
 		tourGuideService.getTracker().stopTracking();
 		assertTrue(userRewards.size() == 1);
@@ -68,6 +79,16 @@ public class TestRewardsService {
 		
 		tourGuideService.getTracker().stopTracking();
 
+	    ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) rewardsService.getExecutorService();
+
+		while(threadPoolExecutor.getActiveCount() >0) {
+		    try {
+				TimeUnit.SECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		assertEquals(gpsUtilWebClient.getListAttractions().size(), userRewards.size());
 
 		rewardsService.setDefaultProximityBuffer();
