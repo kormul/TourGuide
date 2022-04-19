@@ -1,7 +1,5 @@
 package tourGuide.service;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -44,7 +42,7 @@ public class TourGuideService {
 	@Autowired
 	private InternalTestHelperService internalTestHelperService;
 	
-	private ExecutorService executorService = Executors.newFixedThreadPool(32000);
+	private ExecutorService executorService = Executors.newFixedThreadPool(1000);
 	
 	@Autowired
 	private Tracker tracker;
@@ -174,6 +172,10 @@ public class TourGuideService {
 
 	public ExecutorService getExecutorService() {
 		return executorService;
+	}
+
+	public void setExecutorService(ExecutorService executorService) {
+		this.executorService = executorService;
 	}
 	
 	

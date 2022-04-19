@@ -58,7 +58,7 @@ public class LocationControllerTest {
         
         String userName = "internalUser0";
 
-        MvcResult result = mockMvc.perform(get("/getNearbyAttractions")
+        MvcResult result = mockMvc.perform(get("/getNearByAttractions")
                 .param("userName", userName))
                 .andDo(print())
                 .andExpect(status().isOk())

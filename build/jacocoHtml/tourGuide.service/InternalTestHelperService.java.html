@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InternalTestHelperService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TourGuide</a> &gt; <a href="index.source.html" class="el_package">tourGuide.service</a> &gt; <span class="el_source">InternalTestHelperService.java</span></div><h1>InternalTestHelperService.java</h1><pre class="source lang-java linenums">package tourGuide.service;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
+import java.util.stream.IntStream;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import tourGuide.model.helper.InternalTestHelper;
+import tourGuide.model.location.Location;
+import tourGuide.model.location.VisitedLocation;
+import tourGuide.model.user.User;
+
+@Service
+public class InternalTestHelperService {
+
+<span class="fc" id="L24">	private Logger logger = LogManager.getLogger();</span>
+
+	private static final String tripPricerApiKey = &quot;test-server-api-key&quot;;
+	// Database connection will be used for external users, but for testing purposes internal users are provided and stored in memory
+<span class="fc" id="L28">	private Map&lt;String, User&gt; internalUserMap = new HashMap&lt;&gt;();</span>
+	
+<span class="fc" id="L30">	public InternalTestHelperService() {</span>
+<span class="fc" id="L31">		initializeInternalUsers();</span>
+<span class="fc" id="L32">	}</span>
+	
+	private void initializeInternalUsers() {
+<span class="fc" id="L35">		internalUserMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L36">		IntStream.range(0, InternalTestHelper.getInternalUserNumber()).forEach(i -&gt; {</span>
+<span class="fc" id="L37">			String userName = &quot;internalUser&quot; + i;</span>
+<span class="fc" id="L38">			String phone = &quot;000&quot;;</span>
+<span class="fc" id="L39">			String email = userName + &quot;@tourGuide.com&quot;;</span>
+<span class="fc" id="L40">			User user = new User(UUID.randomUUID(), userName, phone, email);</span>
+<span class="fc" id="L41">			generateUserLocationHistory(user);</span>
+			
+<span class="fc" id="L43">			internalUserMap.put(userName, user);</span>
+<span class="fc" id="L44">		});</span>
+<span class="fc" id="L45">		logger.debug(&quot;Created &quot; + InternalTestHelper.getInternalUserNumber() + &quot; internal test users.&quot;);</span>
+<span class="fc" id="L46">	}</span>
+
+	public void addUser(User user) {
+<span class="nc bnc" id="L49" title="All 2 branches missed.">		if (!internalUserMap.containsKey(user.getUserName())) {</span>
+<span class="nc" id="L50">			internalUserMap.put(user.getUserName(), user);</span>
+		}
+<span class="nc" id="L52">	}</span>
+	
+	private void generateUserLocationHistory(User user) {
+<span class="fc" id="L55">		IntStream.range(0, 3).forEach(i-&gt; {</span>
+<span class="fc" id="L56">			user.addToVisitedLocations(new VisitedLocation(user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));</span>
+<span class="fc" id="L57">		});</span>
+<span class="fc" id="L58">	}</span>
+
+	private double generateRandomLongitude() {
+<span class="fc" id="L61">		double leftLimit = -180;</span>
+<span class="fc" id="L62">	    double rightLimit = 180;</span>
+<span class="fc" id="L63">	    return leftLimit + new Random().nextDouble() * (rightLimit - leftLimit);</span>
+	}
+	
+	private double generateRandomLatitude() {
+<span class="fc" id="L67">		double leftLimit = -85.05112878;</span>
+<span class="fc" id="L68">	    double rightLimit = 85.05112878;</span>
+<span class="fc" id="L69">	    return leftLimit + new Random().nextDouble() * (rightLimit - leftLimit);</span>
+	}
+
+	
+	private Date getRandomTime() {
+<span class="fc" id="L74">		LocalDateTime localDateTime = LocalDateTime.now().minusDays(new Random().nextInt(30));</span>
+<span class="fc" id="L75">	    return Date.from(localDateTime.toInstant(ZoneOffset.UTC));</span>
+	}
+	
+	
+	public boolean checkUserName(String userName) {
+		
+<span class="fc" id="L81">		return internalUserMap.containsKey(userName);</span>
+	}
+
+	public static String getTrippricerapikey() {
+<span class="fc" id="L85">		return tripPricerApiKey;</span>
+	}
+
+	public Map&lt;String, User&gt; getInternalUserMap() {
+<span class="fc" id="L89">		return internalUserMap;</span>
+	}
+	
+	public void setInternalUserNumber(int internalUserNumber) {
+<span class="fc" id="L93">		InternalTestHelper.setInternalUserNumbera(internalUserNumber);</span>
+<span class="fc" id="L94">		this.initializeInternalUsers();</span>
+<span class="fc" id="L95">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

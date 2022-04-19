@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserPreferenceController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TourGuide</a> &gt; <a href="index.source.html" class="el_package">tourGuide.controller</a> &gt; <span class="el_source">UserPreferenceController.java</span></div><h1>UserPreferenceController.java</h1><pre class="source lang-java linenums">package tourGuide.controller;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import tourGuide.dto.PreferencesDTO;
+import tourGuide.exception.UserNotFoundException;
+import tourGuide.exception.UserPreferenceNotFoundException;
+import tourGuide.service.InternalTestHelperService;
+import tourGuide.service.TourGuideService;
+
+@RestController
+<span class="fc" id="L18">public class UserPreferenceController {</span>
+
+<span class="fc" id="L20">	private Logger logger = LogManager.getLogger();</span>
+
+	@Autowired
+	TourGuideService tourGuideService;
+
+	
+	@Autowired
+	InternalTestHelperService internalTestHelperService;
+	
+	@PutMapping(&quot;/user/preferences&quot;)
+	public String userUpdatePreferences(@RequestParam String user, @RequestBody PreferencesDTO preferencesDTO) {
+		
+<span class="fc" id="L32">		logger.debug(&quot;update user preference controller&quot;);</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">		if(!internalTestHelperService.checkUserName(user)) {</span>
+<span class="nc" id="L34">			logger.error(&quot;user not find&quot;);</span>
+<span class="nc" id="L35">			throw new UserNotFoundException(user);</span>
+		}
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">		if(preferencesDTO == null) {</span>
+<span class="nc" id="L38">			logger.error(&quot;preference is null&quot;);</span>
+<span class="nc" id="L39">			throw new UserPreferenceNotFoundException();</span>
+		}
+		
+<span class="fc" id="L42">		tourGuideService.userPreferenceUpdate(user, preferencesDTO);</span>
+		
+<span class="fc" id="L44">		return user;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

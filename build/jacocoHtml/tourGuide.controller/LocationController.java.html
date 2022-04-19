@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LocationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TourGuide</a> &gt; <a href="index.source.html" class="el_package">tourGuide.controller</a> &gt; <span class="el_source">LocationController.java</span></div><h1>LocationController.java</h1><pre class="source lang-java linenums">package tourGuide.controller;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.jsoniter.output.JsonStream;
+
+import tourGuide.exception.UserNotFoundException;
+import tourGuide.model.location.VisitedLocation;
+import tourGuide.model.user.User;
+import tourGuide.service.InternalTestHelperService;
+import tourGuide.service.TourGuideService;
+
+@RestController
+<span class="fc" id="L19">public class LocationController {</span>
+	
+<span class="fc" id="L21">	private Logger logger = LogManager.getLogger();</span>
+	
+	@Autowired
+	TourGuideService tourGuideService;
+	
+	@Autowired
+    InternalTestHelperService internalTestHelperService;
+
+ 
+    @GetMapping(&quot;/getLocation&quot;)
+    public String getLocation(@RequestParam String userName) throws UserNotFoundException {
+    	
+<span class="fc" id="L33">        logger.debug(&quot;Controller Get Location&quot;);</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if(!internalTestHelperService.checkUserName(userName)) {</span>
+<span class="nc" id="L35">            logger.error(&quot;This username does not exist&quot; + userName);</span>
+<span class="nc" id="L36">            throw new UserNotFoundException(userName);</span>
+        }
+<span class="fc" id="L38">        VisitedLocation visitedLocation = tourGuideService.getUserLocation(tourGuideService.getUser(userName));</span>
+        
+<span class="fc" id="L40">        return JsonStream.serialize(visitedLocation.getLocation());</span>
+    }
+    
+    @GetMapping(&quot;/getNearByAttractions&quot;)
+    public String getNearByAttractions(@RequestParam String userName) {
+<span class="fc" id="L45">        logger.debug(&quot;Controller Get Near By Attractions&quot;);</span>
+        
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if(!internalTestHelperService.checkUserName(userName)) {</span>
+<span class="fc" id="L48">            logger.error(&quot;This username does not exist&quot; + userName);</span>
+<span class="fc" id="L49">            throw new UserNotFoundException(userName);</span>
+        }
+        
+<span class="fc" id="L52">        User user = tourGuideService.getUser(userName);</span>
+<span class="fc" id="L53">        System.out.println(user.getEmailAddress());</span>
+<span class="fc" id="L54">    	VisitedLocation visitedLocation = tourGuideService.getUserLocation(user);</span>
+<span class="fc" id="L55">        System.out.println(user.getEmailAddress());</span>
+<span class="fc" id="L56">    	return JsonStream.serialize(tourGuideService.getNearByAttractions(visitedLocation));</span>
+    }
+    
+    @GetMapping(&quot;/getAllCurrentLocations&quot;)
+    public String getAllCurrentLocations() {
+<span class="fc" id="L61">        logger.debug(&quot;Controller Get All Current Attractions&quot;);</span>
+<span class="fc" id="L62">    	return JsonStream.serialize(tourGuideService.getLocationUsers());</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tourGuide.integration.TrackerControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-04-18T09:42:57" hostname="Middle-Earth" time="0.029">
+  <properties/>
+  <testcase name="startTrackerTest" classname="tourGuide.integration.TrackerControllerTest" time="0.015"/>
+  <testcase name="stopTrackerTest" classname="tourGuide.integration.TrackerControllerTest" time="0.013"/>
+  <system-out><![CDATA[2022-04-18 11:42:57.363  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [tourGuide.integration.TrackerControllerTest], using SpringBootContextLoader
+2022-04-18 11:42:57.363  INFO 12704 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [tourGuide.integration.TrackerControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-04-18 11:42:57.364  INFO 12704 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [tourGuide.integration.TrackerControllerTest]: TrackerControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-04-18 11:42:57.366  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration tourGuide.Application for test class tourGuide.integration.TrackerControllerTest
+2022-04-18 11:42:57.369  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2022-04-18 11:42:57.383  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@c128ad26, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@ac0c0008, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@c29946fc, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@54048617, org.springframework.test.context.support.DirtiesContextTestExecutionListener@76b07aae, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@50942450, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@71f82637, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@1604cb1d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@492ce22b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2bbf9484]
+2022-04-18 11:42:57.386  INFO 12704 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-04-18 11:42:57.386  INFO 12704 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-04-18 11:42:57.388  INFO 12704 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2022-04-18 11:42:57.393 DEBUG 12704 --- [    Test worker] tourGuide.controller.TrackerController   : Controller Start Tracker
+2022-04-18 11:42:57.393 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getTracker
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /location/startTracker
+       Parameters = {}
+          Headers = []
+             Body = <no character encoding set>
+    Session Attrs = {}
+
+Handler:
+             Type = tourGuide.controller.TrackerController
+           Method = public void tourGuide.controller.TrackerController.startTracker()
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = []
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2022-04-18 11:42:57.402  INFO 12704 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-04-18 11:42:57.403  INFO 12704 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-04-18 11:42:57.404 DEBUG 12704 --- [pool-4-thread-1] tourGuide.service.TourGuideService       : getAllUsers
+2022-04-18 11:42:57.404 DEBUG 12704 --- [pool-4-thread-1] tourGuide.service.Tracker                : Begin Tracker. Tracking 1 users.
+2022-04-18 11:42:57.406  INFO 12704 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2022-04-18 11:42:57.408 DEBUG 12704 --- [    Test worker] tourGuide.controller.TrackerController   : Controller Stop Tracker
+2022-04-18 11:42:57.408 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getTracker
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /location/stopTracker
+       Parameters = {}
+          Headers = []
+             Body = <no character encoding set>
+    Session Attrs = {}
+
+Handler:
+2022-04-18 11:42:57.411 DEBUG 12704 --- [pool-4-thread-1] tourGuide.service.Tracker                : Tracker Time Elapsed: 0 seconds.
+             Type = tourGuide.controller.TrackerController
+           Method = public void tourGuide.controller.TrackerController.stopTracker()
+
+2022-04-18 11:42:57.411 DEBUG 12704 --- [pool-4-thread-1] tourGuide.service.Tracker                : Tracker sleeping
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = []
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -10,7 +10,7 @@ public class UserNotFoundException extends RuntimeException{
 
 	public UserNotFoundException(String user) {
 		
-		super("User nsot found : " + user);
+		super("User not found : " + user);
 		logger.error("User not found : " + user );
 	}
 

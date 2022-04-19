@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tourGuide.integration.RewardsControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-04-18T09:42:57" hostname="Middle-Earth" time="0.02">
+  <properties/>
+  <testcase name="getRewardsTest" classname="tourGuide.integration.RewardsControllerTest" time="0.02"/>
+  <system-out><![CDATA[2022-04-18 11:42:57.332  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [tourGuide.integration.RewardsControllerTest], using SpringBootContextLoader
+2022-04-18 11:42:57.333  INFO 12704 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [tourGuide.integration.RewardsControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-04-18 11:42:57.333  INFO 12704 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [tourGuide.integration.RewardsControllerTest]: RewardsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-04-18 11:42:57.335  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration tourGuide.Application for test class tourGuide.integration.RewardsControllerTest
+2022-04-18 11:42:57.337  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2022-04-18 11:42:57.338  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@657be5bd, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@627dc0e4, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@f7644825, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@cee531bd, org.springframework.test.context.support.DirtiesContextTestExecutionListener@bdd70fce, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@b37752af, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@d9f7b7fc, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2b5738b8, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@a67ea912, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@983f32da]
+2022-04-18 11:42:57.350  INFO 12704 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-04-18 11:42:57.350  INFO 12704 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-04-18 11:42:57.352  INFO 12704 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2022-04-18 11:42:57.352 DEBUG 12704 --- [    Test worker] t.service.InternalTestHelperService      : Created 1 internal test users.
+2022-04-18 11:42:57.354 DEBUG 12704 --- [    Test worker] tourGuide.controller.RewardsController   : Controller Get Rewards
+2022-04-18 11:42:57.354 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getUser
+2022-04-18 11:42:57.354 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getUserRewards
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /getRewards
+       Parameters = {userName=[internalUser0]}
+          Headers = []
+             Body = <no character encoding set>
+    Session Attrs = {}
+
+Handler:
+             Type = tourGuide.controller.RewardsController
+           Method = public java.lang.String tourGuide.controller.RewardsController.getRewards(java.lang.String)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"text/plain;charset=UTF-8", Content-Length:"2"]
+     Content type = text/plain;charset=UTF-8
+             Body = []
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -2,45 +2,45 @@ package tourGuide.model.location;
 
 public class Address {
 	
-	private String Address;
-	private String Zip;
-	private String City;
-	private String Country;
+	private String address;
+	private String zip;
+	private String city;
+	private String country;
 	
 	public Address() {
 	}
 	
 	
 	public Address(String address, String zip, String city, String country) {
-		Address = address;
-		Zip = zip;
-		City = city;
-		Country = country;
+		this.address = address;
+		this.zip = zip;
+		this.city = city;
+		this.country = country;
 	}
 
 	public String getAddress() {
-		return Address;
+		return this.address;
 	}
 	public void setAddress(String address) {
-		Address = address;
+		this.address = address;
 	}
 	public String getZip() {
-		return Zip;
+		return this.zip;
 	}
 	public void setZip(String zip) {
-		Zip = zip;
+		this.zip = zip;
 	}
 	public String getCity() {
-		return City;
+		return this.city;
 	}
 	public void setCity(String city) {
-		City = city;
+		this.city = city;
 	}
 	public String getCountry() {
-		return Country;
+		return this.country;
 	}
 	public void setCountry(String country) {
-		Country = country;
+		this.country = country;
 	}
 
 }

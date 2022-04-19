@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,16 +29,10 @@ public class RewardsService {
 	private int proximityBuffer = defaultProximityBuffer;
 	private int attractionProximityRange = 200;
 	
-	public int a = 0;
-	public int b = 0;
-	public int c = 0;
-	public int d = 0;
-	public int e = 0;
+	private Logger logger = LoggerFactory.getLogger(RewardsService.class);
 	
-	private Logger logger = LoggerFactory.getLogger(TourGuideService.class);
-	
-	private ExecutorService executorService = Executors.newFixedThreadPool(32000);
-	private ExecutorService executorService2 = Executors.newFixedThreadPool(32000);
+	private ExecutorService executorService = Executors.newFixedThreadPool(1000);
+	private ExecutorService executorService2 = Executors.newFixedThreadPool(1000);
 
 	
 	@Autowired
@@ -59,30 +54,27 @@ public class RewardsService {
 	
 	public void calculateRewards(User user) {
 		
-		logger.debug("trackUserLocation");
+		//logger.debug("trackUserLocation");
 
-		a++;
 		CompletableFuture.supplyAsync(()-> {		
-			b++;
 			List<Attraction> attractions = gpsUtilWebClient.getListAttractions();
-			c++;
 			return attractions;
 		}, executorService ).thenAccept(attractions -> {
 			
 			List<VisitedLocation> userLocations = user.getVisitedLocations();
-			d++;
-			userLocations.stream().forEach((visitedLocation) -> {
-				attractions.stream().forEach((attraction) -> {
+			
+			userLocations.parallelStream().forEach((visitedLocation) -> {
+				attractions.parallelStream().forEach((attraction) -> {
 					
-					if(user.getUserRewards().stream().filter(r -> r.getAttraction().getAttractionName().equals(attraction.getAttractionName())).count() == 0) {
+					if(user.getUserRewards().parallelStream().filter(r -> r.getAttraction().getAttractionName().equals(attraction.getAttractionName())).count() == 0) {
 						if(nearAttraction(visitedLocation, attraction)) {
 							
-							CompletableFuture.supplyAsync(()->{
+						CompletableFuture.supplyAsync(()->{
 								return getRewardPoints(attraction, user);
 							}, executorService2).thenAccept(points -> {
 								user.addUserReward(new UserReward(visitedLocation, attraction, points));
-								e++;
 							});
+							user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
 						}
 					}
 				});
@@ -123,4 +115,14 @@ public class RewardsService {
 	public ExecutorService getExecutorService2() {
 		return executorService2;
 	}
+
+	public void setExecutorService(ExecutorService executorService) {
+		this.executorService = executorService;
+	}
+
+	public void setExecutorService2(ExecutorService executorService2) {
+		this.executorService2 = executorService2;
+	}
+	
+	
 }

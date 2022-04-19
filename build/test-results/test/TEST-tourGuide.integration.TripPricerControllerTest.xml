@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tourGuide.integration.TripPricerControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-04-18T09:42:57" hostname="Middle-Earth" time="0.038">
+  <properties/>
+  <testcase name="getTripDealsTest" classname="tourGuide.integration.TripPricerControllerTest" time="0.038"/>
+  <system-out><![CDATA[2022-04-18 11:42:57.416  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [tourGuide.integration.TripPricerControllerTest], using SpringBootContextLoader
+2022-04-18 11:42:57.417  INFO 12704 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [tourGuide.integration.TripPricerControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-04-18 11:42:57.417  INFO 12704 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [tourGuide.integration.TripPricerControllerTest]: TripPricerControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-04-18 11:42:57.420  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration tourGuide.Application for test class tourGuide.integration.TripPricerControllerTest
+2022-04-18 11:42:57.423  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2022-04-18 11:42:57.425  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@9f8f02cf, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@128a7f48, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@d11a4d8a, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@38e3d776, org.springframework.test.context.support.DirtiesContextTestExecutionListener@69864d61, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4e8702a1, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@158a663a, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@72db1426, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@1cd55532, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@e8b7fb0e]
+2022-04-18 11:42:57.430  INFO 12704 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-04-18 11:42:57.430  INFO 12704 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-04-18 11:42:57.432  INFO 12704 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2022-04-18 11:42:57.432 DEBUG 12704 --- [    Test worker] t.service.InternalTestHelperService      : Created 1 internal test users.
+2022-04-18 11:42:57.434 DEBUG 12704 --- [    Test worker] t.controller.TripPricerController        : Access to /getTripDeals endpoint with username : internalUser0
+2022-04-18 11:42:57.434 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getUser
+2022-04-18 11:42:57.434 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getTripDeals
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /getTripDeals
+       Parameters = {userName=[internalUser0]}
+          Headers = []
+             Body = <no character encoding set>
+    Session Attrs = {}
+
+Handler:
+             Type = tourGuide.controller.TripPricerController
+           Method = public java.lang.String tourGuide.controller.TripPricerController.getTripDeals(java.lang.String)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"text/plain;charset=UTF-8", Content-Length:"1056"]
+     Content type = text/plain;charset=UTF-8
+             Body = [{"name":"Live Free","price":555.99,"tripId":{"mostSigBits":517812915473434599,"leastSigBits":-8012001743183970718,"leastSignificantBits":-8012001743183970718,"mostSignificantBits":517812915473434599}},{"name":"Enterprize Ventures Limited","price":173.99,"tripId":{"mostSigBits":517812915473434599,"leastSigBits":-8012001743183970718,"leastSignificantBits":-8012001743183970718,"mostSignificantBits":517812915473434599}},{"name":"Dancing Waves Cruselines and Partners","price":627.99,"tripId":{"mostSigBits":517812915473434599,"leastSigBits":-8012001743183970718,"leastSignificantBits":-8012001743183970718,"mostSignificantBits":517812915473434599}},{"name":"Dream Trips","price":222.99,"tripId":{"mostSigBits":517812915473434599,"leastSigBits":-8012001743183970718,"leastSignificantBits":-8012001743183970718,"mostSignificantBits":517812915473434599}},{"name":"AdventureCo","price":538.99,"tripId":{"mostSigBits":517812915473434599,"leastSigBits":-8012001743183970718,"leastSignificantBits":-8012001743183970718,"mostSignificantBits":517812915473434599}}]
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

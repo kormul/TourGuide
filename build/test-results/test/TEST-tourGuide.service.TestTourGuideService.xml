@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tourGuide.service.TestTourGuideService" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-04-18T09:45:16" hostname="Middle-Earth" time="30.126">
+  <properties/>
+  <testcase name="getUserLocation" classname="tourGuide.service.TestTourGuideService" time="10.017"/>
+  <testcase name="addUser" classname="tourGuide.service.TestTourGuideService" time="0.004"/>
+  <testcase name="getTripDeals" classname="tourGuide.service.TestTourGuideService" time="0.056"/>
+  <testcase name="getAllUsers" classname="tourGuide.service.TestTourGuideService" time="0.002"/>
+  <testcase name="trackUser" classname="tourGuide.service.TestTourGuideService" time="10.018"/>
+  <testcase name="getNearbyAttractions" classname="tourGuide.service.TestTourGuideService" time="10.026"/>
+  <system-out><![CDATA[2022-04-18 11:45:16.498  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [tourGuide.service.TestTourGuideService], using SpringBootContextLoader
+2022-04-18 11:45:16.499  INFO 12704 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [tourGuide.service.TestTourGuideService]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-04-18 11:45:16.499  INFO 12704 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [tourGuide.service.TestTourGuideService]: TestTourGuideService does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-04-18 11:45:16.501  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration tourGuide.Application for test class tourGuide.service.TestTourGuideService
+2022-04-18 11:45:16.502  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2022-04-18 11:45:16.502  INFO 12704 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2b1310ba, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@39afbeb3, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@e05da0ea, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@eb12c5bd, org.springframework.test.context.support.DirtiesContextTestExecutionListener@df43408e, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@50a68307, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@e9d151df, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4a984ae6, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@354f1e40, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@1639b579]
+2022-04-18 11:45:16.506 DEBUG 12704 --- [    Test worker] t.service.InternalTestHelperService      : Created 0 internal test users.
+2022-04-18 11:45:26.520 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getTracker
+2022-04-18 11:45:26.523 DEBUG 12704 --- [    Test worker] t.service.InternalTestHelperService      : Created 0 internal test users.
+2022-04-18 11:45:26.524 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : addUser
+2022-04-18 11:45:26.524 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : addUser
+2022-04-18 11:45:26.524 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getUser
+2022-04-18 11:45:26.524 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getUser
+2022-04-18 11:45:26.524 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getTracker
+2022-04-18 11:45:26.529 DEBUG 12704 --- [    Test worker] t.service.InternalTestHelperService      : Created 0 internal test users.
+2022-04-18 11:45:26.529 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getTripDeals
+2022-04-18 11:45:26.582 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getTracker
+2022-04-18 11:45:26.585 DEBUG 12704 --- [    Test worker] t.service.InternalTestHelperService      : Created 0 internal test users.
+2022-04-18 11:45:26.585 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : addUser
+2022-04-18 11:45:26.585 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : addUser
+2022-04-18 11:45:26.585 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getAllUsers
+2022-04-18 11:45:26.586 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getTracker
+2022-04-18 11:45:26.588 DEBUG 12704 --- [    Test worker] t.service.InternalTestHelperService      : Created 0 internal test users.
+2022-04-18 11:45:36.602 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getTracker
+2022-04-18 11:45:36.605 DEBUG 12704 --- [    Test worker] t.service.InternalTestHelperService      : Created 0 internal test users.
+2022-04-18 11:45:46.613 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getNearByAttractions
+2022-04-18 11:45:46.629 DEBUG 12704 --- [    Test worker] tourGuide.service.TourGuideService       : getTracker
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
