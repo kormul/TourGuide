@@ -75,7 +75,6 @@ public class TestPerformance {
 		}
 		
 	    ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) tourGuideService.getExecutorService();
-	    ThreadPoolExecutor threadPoolExecutor1 = (ThreadPoolExecutor) rewardsService.getExecutorService();
 	    
 		while(threadPoolExecutor.getActiveCount() >0) {
 		    try {
